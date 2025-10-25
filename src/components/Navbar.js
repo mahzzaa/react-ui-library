@@ -15,106 +15,107 @@ function ResponsiveNavbar({
   className = '',
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isFullWidth = variant === 'full';
 
-  const wrapperClass =
-    variant === 'full'
-      ? 'w-full border-b border-slate-800 bg-slate-900/90'
-      : 'relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-xl';
+  const headerClass = isFullWidth
+    ? 'relative z-50 w-full border-b border-slate-800 bg-slate-900 text-white'
+    : 'relative mx-auto max-w-4xl rounded-2xl border border-slate-800 bg-slate-900 text-white shadow-lg';
 
-  const containerClass =
-    variant === 'full'
-      ? 'flex w-full flex-col'
-      : 'mx-auto flex max-w-4xl flex-col';
+  const innerClass = isFullWidth
+    ? 'mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4'
+    : 'flex w-full items-center justify-between px-6 py-4';
+
+  const mobileMenu = (
+    <div className="flex flex-col items-center gap-6 text-center">
+      <nav className="flex flex-col items-center gap-4">
+        {links.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            className="text-lg font-medium text-slate-100 hover:text-white"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+      <div className="flex w-full flex-col items-center gap-3">
+        <a
+          href="#"
+          className="w-full max-w-xs rounded-md border border-blue-400/40 px-4 py-2 text-sm font-semibold text-blue-200 hover:border-blue-300 hover:text-white"
+        >
+          Log in
+        </a>
+        <a
+          href="#"
+          className="w-full max-w-xs rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
+        >
+          Sign up
+        </a>
+      </div>
+    </div>
+  );
 
   return (
-    <header className={`${wrapperClass} ${className}`.trim()}>
-      <div className={containerClass}>
-        <div className="flex items-center justify-between px-6 py-4">
-          <a href={brandHref} className="text-xl font-semibold text-white">
-            {brand}
-          </a>
-          <nav className="hidden items-center gap-6 md:flex">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-slate-200 transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              href="/"
-              className="rounded-md border border-blue-400/30 px-4 py-2 text-sm font-semibold text-blue-200 transition hover:border-blue-300/60 hover:text-white"
-            >
-              Log in
+    <header className={[headerClass, className].filter(Boolean).join(' ')}>
+      <div className={innerClass}>
+        <a href={brandHref} className="text-xl font-semibold">
+          {brand}
+        </a>
+        <nav className="hidden items-center gap-6 md:flex">
+          {links.map((link) => (
+            <a key={link.label} href={link.href} className="text-sm font-medium text-slate-200 hover:text-white">
+              {link.label}
             </a>
-            <a
-              href="/"
-              className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
-            >
-              Sign up
-            </a>
-          </div>
-          <button
-            type="button"
-            onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex items-center justify-center rounded-md border border-slate-700 bg-slate-900/90 p-2 text-slate-200 transition hover:border-blue-400/40 hover:text-white md:hidden"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-menu"
+          ))}
+        </nav>
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="#"
+            className="rounded-md border border-blue-400/30 px-4 py-2 text-sm font-semibold text-blue-200 hover:border-blue-300 hover:text-white"
           >
-            <span className="sr-only">Toggle navigation</span>
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+            Log in
+          </a>
+          <a
+            href="#"
+            className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
+          >
+            Sign up
+          </a>
         </div>
-
-        <div
-          id="mobile-menu"
-          className={`grid gap-4 border-t border-slate-800 px-6 py-4 md:hidden transition duration-200 ease-out ${
-            mobileOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 pointer-events-none'
-          }`}
+        <button
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          className="inline-flex items-center justify-center rounded-md border border-slate-700 p-2 text-slate-200 hover:border-blue-400/60 hover:text-white md:hidden"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
         >
-          <nav className="grid gap-3">
-            {links.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-slate-200 transition hover:text-white"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <div className="grid gap-3">
-            <a
-              href="/"
-              className="w-full rounded-md border border-blue-400/20 px-4 py-2 text-center text-sm font-semibold text-blue-200 transition hover:border-blue-300/50 hover:text-white"
-            >
-              Log in
-            </a>
-            <a
-              href="/"
-              className="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
-            >
-              Sign up
-            </a>
-          </div>
-        </div>
+          <span className="sr-only">Toggle navigation</span>
+          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {mobileOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
       </div>
+
+      {isFullWidth ? (
+        mobileOpen && (
+          <div
+            id="mobile-menu"
+            className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/95 px-6 md:hidden"
+          >
+            {mobileMenu}
+          </div>
+        )
+      ) : (
+        mobileOpen && (
+          <div id="mobile-menu" className="border-t border-slate-800 bg-slate-900/95 px-6 py-6 md:hidden">
+            {mobileMenu}
+          </div>
+        )
+      )}
     </header>
   );
 }
