@@ -1,9 +1,30 @@
 import { useEffect, useState } from 'react';
 import NavDropdown from './NavDropdown';
 
+const defaultDropdownItems = [
+  {
+    label: 'UI Components',
+    href: '/components',
+    description: 'Browse prebuilt sections for dashboards, marketing, and more.',
+  },
+  {
+    label: 'Layouts',
+    href: '/components',
+    description: 'Starter page layouts to scaffold new screens quickly.',
+  },
+  {
+    label: 'See all components',
+    href: '/components',
+  },
+];
+
 const defaultLinks = [
   { label: 'Overview', href: '/' },
-  { label: 'Features', href: '/' },
+  {
+    label: 'Components',
+    href: '/components',
+    items: defaultDropdownItems,
+  },
   { label: 'Pricing', href: '/' },
   { label: 'Docs', href: '/' },
 ];
