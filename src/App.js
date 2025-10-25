@@ -4,8 +4,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header className="App-header w-full h-screen flex flex-col items-center justify-center bg-gray-900 text-white">
+        <img src={logo} className="App-logo w-32" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
