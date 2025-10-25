@@ -16,7 +16,7 @@ const categories = [
 
 function ComponentsPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-[calc(100vh-64px)] bg-slate-950 text-white">
       <div className="mx-auto flex max-w-5xl flex-col gap-12 px-6 py-16">
         <header className="space-y-4 text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-blue-400">

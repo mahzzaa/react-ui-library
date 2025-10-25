@@ -18,7 +18,7 @@ function ResponsiveNavbar({
   const isFullWidth = variant === 'full';
 
   const headerClass = isFullWidth
-    ? 'relative z-50 w-full border-b border-slate-800 bg-slate-900 text-white'
+    ? 'sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/95 text-white backdrop-blur-sm'
     : 'relative mx-auto max-w-4xl rounded-2xl border border-slate-800 bg-slate-900 text-white shadow-lg';
 
   const innerClass = isFullWidth
