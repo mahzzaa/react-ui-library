@@ -1,9 +1,17 @@
+import { Link } from 'react-router-dom';
+
 const categories = [
   {
-    name: 'Responsive Navbar',
-    description: 'Navigation bars that adapt seamlessly to different screen sizes.',
-    examples: ['Minimal navbar', 'Dropdown menu', 'Sticky header'],
-  }
+    name: 'Navigation',
+    description: 'Menus, headers, and interactive patterns that keep people oriented as they explore.',
+    components: [
+      {
+        name: 'Responsive Navbar',
+        blurb: 'Sticky header with logo area, primary links, and a mobile-friendly menu drawer.',
+        href: '/components/navbar-component',
+      },
+    ],
+  },
 ];
 
 function ComponentsPage() {
@@ -31,15 +39,39 @@ function ComponentsPage() {
             >
               <h2 className="text-2xl font-semibold text-white">{category.name}</h2>
               <p className="mt-2 text-sm text-slate-300">{category.description}</p>
-              <div className="mt-4 text-sm text-slate-400">
-                <p className="font-medium text-slate-200">Example components:</p>
-                <ul className="mt-2 space-y-1">
-                  {category.examples.map((example) => (
-                    <li key={example} className="rounded bg-slate-800/60 px-3 py-1">
-                      {example}
-                    </li>
-                  ))}
-                </ul>
+
+              <div className="mt-6 space-y-3">
+                {category.components.map((component) => {
+                  const baseClasses =
+                    'block rounded-lg border border-slate-800/60 bg-slate-900/60 px-4 py-3 transition hover:border-blue-500/50 hover:bg-slate-900';
+
+                  if (component.href) {
+                    return (
+                      <Link key={component.name} to={component.href} className={`${baseClasses} group`}>
+                        <p className="text-sm font-semibold text-white group-hover:text-blue-200">
+                          {component.name}
+                        </p>
+                        {component.blurb && (
+                          <p className="mt-1 text-xs text-slate-400 group-hover:text-slate-300">
+                            {component.blurb}
+                          </p>
+                        )}
+                        <span className="mt-2 inline-flex items-center text-xs font-medium text-blue-300 group-hover:text-blue-200">
+                          View component →
+                        </span>
+                      </Link>
+                    );
+                  }
+
+                  return (
+                    <div key={component.name} className={baseClasses}>
+                      <p className="text-sm font-semibold text-white">{component.name}</p>
+                      {component.blurb && (
+                        <p className="mt-1 text-xs text-slate-400">{component.blurb}</p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </article>
           ))}

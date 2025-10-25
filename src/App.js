@@ -1,5 +1,6 @@
 import { Link, Route, Routes } from 'react-router-dom';
 import ComponentsPage from './pages/ComponentsPage';
+import NavbarComponentPage from './pages/NavbarComponentPage';
 import './App.css';
 
 function HomePage() {
@@ -33,6 +34,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/components" element={<ComponentsPage />} />
+      <Route path="/components/navbar-component" element={<NavbarComponentPage />} />
     </Routes>
   );
 }
