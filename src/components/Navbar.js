@@ -104,9 +104,11 @@ function ResponsiveNavbar({
         mobileOpen && (
           <div
             id="mobile-menu"
-            className="fixed inset-0 z-40 flex items-center justify-center bg-slate-950/95 px-6 md:hidden"
+            className="fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto bg-slate-950/95 md:hidden"
           >
-            {mobileMenu}
+            <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col items-center justify-center px-6 py-10">
+              {mobileMenu}
+            </div>
           </div>
         )
       ) : (
