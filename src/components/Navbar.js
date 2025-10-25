@@ -7,14 +7,30 @@ const defaultLinks = [
   { label: 'Docs', href: '#' },
 ];
 
-function ResponsiveNavbar({ brand = 'FlowFrame', links = defaultLinks }) {
+function ResponsiveNavbar({
+  brand = 'FlowFrame',
+  brandHref = '#',
+  links = defaultLinks,
+  variant = 'card',
+  className = '',
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const wrapperClass =
+    variant === 'full'
+      ? 'w-full border-b border-slate-800 bg-slate-900/90'
+      : 'relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-xl';
+
+  const containerClass =
+    variant === 'full'
+      ? 'flex w-full flex-col'
+      : 'mx-auto flex max-w-4xl flex-col';
+
   return (
-    <header className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/80 shadow-xl">
-      <div className="mx-auto flex max-w-4xl flex-col">
+    <header className={`${wrapperClass} ${className}`.trim()}>
+      <div className={containerClass}>
         <div className="flex items-center justify-between px-6 py-4">
-          <a href="/" className="text-xl font-semibold text-white">
+          <a href={brandHref} className="text-xl font-semibold text-white">
             {brand}
           </a>
           <nav className="hidden items-center gap-6 md:flex">
@@ -30,13 +46,13 @@ function ResponsiveNavbar({ brand = 'FlowFrame', links = defaultLinks }) {
           </nav>
           <div className="hidden items-center gap-3 md:flex">
             <a
-              href="/"
+              href="#"
               className="rounded-md border border-blue-400/30 px-4 py-2 text-sm font-semibold text-blue-200 transition hover:border-blue-300/60 hover:text-white"
             >
               Log in
             </a>
             <a
-              href="/"
+              href="#"
               className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
             >
               Sign up
@@ -68,9 +84,9 @@ function ResponsiveNavbar({ brand = 'FlowFrame', links = defaultLinks }) {
 
         <div
           id="mobile-menu"
-          className={`grid gap-4 border-t border-slate-800 px-6 py-4 md:hidden ${
+          className={`grid gap-4 border-t border-slate-800 px-6 py-4 md:hidden transition duration-200 ease-out ${
             mobileOpen ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 pointer-events-none'
-          } transition duration-200 ease-out`}
+          }`}
         >
           <nav className="grid gap-3">
             {links.map((link) => (
@@ -85,13 +101,13 @@ function ResponsiveNavbar({ brand = 'FlowFrame', links = defaultLinks }) {
           </nav>
           <div className="grid gap-3">
             <a
-              href="/"
+              href="#"
               className="w-full rounded-md border border-blue-400/20 px-4 py-2 text-center text-sm font-semibold text-blue-200 transition hover:border-blue-300/50 hover:text-white"
             >
               Log in
             </a>
             <a
-              href="/"
+              href="#"
               className="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
             >
               Sign up
