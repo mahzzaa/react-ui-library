@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 const defaultLinks = [
-  { label: 'Overview', href: '#' },
-  { label: 'Features', href: '#' },
-  { label: 'Pricing', href: '#' },
-  { label: 'Docs', href: '#' },
+  { label: 'Overview', href: '/' },
+  { label: 'Features', href: '/' },
+  { label: 'Pricing', href: '/' },
+  { label: 'Docs', href: '/' },
 ];
 
 function ResponsiveNavbar({
   brand = 'FlowFrame',
-  brandHref = '#',
+  brandHref = '/',
   links = defaultLinks,
   variant = 'card',
   className = '',
@@ -38,16 +38,16 @@ function ResponsiveNavbar({
           </a>
         ))}
       </nav>
-      <div className="flex w-full flex-col items-center gap-3">
+      <div className="flex flex-col items-center w-full gap-3">
         <a
-          href="#"
-          className="w-full max-w-xs rounded-md border border-blue-400/40 px-4 py-2 text-sm font-semibold text-blue-200 hover:border-blue-300 hover:text-white"
+          href="/"
+          className="w-full max-w-xs px-4 py-2 text-sm font-semibold text-blue-200 border rounded-md border-blue-400/40 hover:border-blue-300 hover:text-white"
         >
           Log in
         </a>
         <a
-          href="#"
-          className="w-full max-w-xs rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
+          href="/"
+          className="w-full max-w-xs px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-400"
         >
           Sign up
         </a>
@@ -61,23 +61,23 @@ function ResponsiveNavbar({
         <a href={brandHref} className="text-xl font-semibold">
           {brand}
         </a>
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="items-center hidden gap-6 md:flex">
           {links.map((link) => (
             <a key={link.label} href={link.href} className="text-sm font-medium text-slate-200 hover:text-white">
               {link.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="items-center hidden gap-3 md:flex">
           <a
-            href="#"
-            className="rounded-md border border-blue-400/30 px-4 py-2 text-sm font-semibold text-blue-200 hover:border-blue-300 hover:text-white"
+            href="/"
+            className="px-4 py-2 text-sm font-semibold text-blue-200 border rounded-md border-blue-400/30 hover:border-blue-300 hover:text-white"
           >
             Log in
           </a>
           <a
-            href="#"
-            className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
+            href="/"
+            className="px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-400"
           >
             Sign up
           </a>
@@ -85,12 +85,12 @@ function ResponsiveNavbar({
         <button
           type="button"
           onClick={() => setMobileOpen((open) => !open)}
-          className="inline-flex items-center justify-center rounded-md border border-slate-700 p-2 text-slate-200 hover:border-blue-400/60 hover:text-white md:hidden"
+          className="inline-flex items-center justify-center p-2 border rounded-md border-slate-700 text-slate-200 hover:border-blue-400/60 hover:text-white md:hidden"
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
         >
           <span className="sr-only">Toggle navigation</span>
-          <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -113,7 +113,7 @@ function ResponsiveNavbar({
         </div>
       ) : (
         mobileOpen && (
-          <div id="mobile-menu" className="border-t border-slate-800 bg-slate-900/95 px-6 py-6 md:hidden">
+          <div id="mobile-menu" className="px-6 py-6 border-t border-slate-800 bg-slate-900/95 md:hidden">
             {mobileMenu}
           </div>
         )
