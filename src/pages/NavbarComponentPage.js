@@ -31,13 +31,13 @@ function ResponsiveNavbarPreview() {
           </nav>
           <div className="hidden items-center gap-3 md:flex">
             <a
-              href="#"
+              href="/"
               className="rounded-md border border-blue-400/30 px-4 py-2 text-sm font-semibold text-blue-200 transition hover:border-blue-300/60 hover:text-white"
             >
               Log in
             </a>
             <a
-              href="#"
+              href="/"
               className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
             >
               Sign up
@@ -46,7 +46,9 @@ function ResponsiveNavbarPreview() {
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex items-center justify-center rounded-md border border-slate-700 bg-slate-900/90 p-2 text-slate-200 transition hover:border-blue-400/40 hover:text-white md:hidden"
+            className="inline-flex items-center justify-center rounded-md border
+             border-slate-700 bg-slate-900/90 p-2 text-slate-200 transition
+              hover:border-blue-400/40 hover:text-white md:hidden"
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
           >
@@ -86,13 +88,13 @@ function ResponsiveNavbarPreview() {
           </nav>
           <div className="grid gap-3">
             <a
-              href="#"
+              href="/"
               className="w-full rounded-md border border-blue-400/20 px-4 py-2 text-center text-sm font-semibold text-blue-200 transition hover:border-blue-300/50 hover:text-white"
             >
               Log in
             </a>
             <a
-              href="#"
+              href="/"
               className="w-full rounded-md bg-blue-500 px-4 py-2 text-center text-sm font-semibold text-white shadow-lg transition hover:bg-blue-400"
             >
               Sign up
