@@ -39,68 +39,42 @@ function ResponsiveNavbar({
     setActiveDropdown(label);
   };
 
-  const closeMobileMenu = () => {
-    setMobileOpen(false);
-  };
+  const hasDropdownItems = (items) => Array.isArray(items) && items.length > 0;
 
   const handleMobileLinkClick = () => {
-    closeMobileMenu();
+    setMobileOpen(false);
     closeDropdown();
   };
 
-  const hasDropdownItems = (items) => Array.isArray(items) && items.length > 0;
+  const renderNavItem = (link, variant = 'desktop') => {
+    const isMobile = variant === 'mobile';
 
-  const getDropdownProps = (link, variant = 'desktop') => {
-    const baseProps = {
-      label: link.label,
-      items: link.items,
-      isOpen: activeDropdown === link.label,
-      onToggle: () => toggleDropdown(link.label),
-    };
-
-    if (variant === 'mobile') {
-      return {
-        ...baseProps,
-        onItemClick: handleMobileLinkClick,
-        variant: 'mobile',
-      };
-    }
-
-    return {
-      ...baseProps,
-      onOpen: () => openDropdown(link.label),
-      onClose: closeDropdown,
-      onItemClick: closeDropdown,
-    };
-  };
-
-  const renderDesktopNavItem = (link) => {
-    if (!hasDropdownItems(link.items)) {
-      return (
-        <a key={link.label} href={link.href} className="text-sm font-medium text-slate-200 transition hover:text-white">
-          {link.label}
-        </a>
-      );
-    }
-
-    return <NavDropdown key={link.label} {...getDropdownProps(link)} />;
-  };
-
-  const renderMobileNavItem = (link) => {
     if (!hasDropdownItems(link.items)) {
       return (
         <a
           key={link.label}
           href={link.href}
-          className="text-lg font-medium text-slate-100 hover:text-white"
-          onClick={handleMobileLinkClick}
+          className={isMobile ? 'text-lg font-medium text-slate-100 hover:text-white' : 'text-sm font-medium text-slate-200 transition hover:text-white'}
+          onClick={isMobile ? handleMobileLinkClick : undefined}
         >
           {link.label}
         </a>
       );
     }
 
-    return <NavDropdown key={link.label} {...getDropdownProps(link, 'mobile')} />;
+    return (
+      <NavDropdown
+        key={link.label}
+        label={link.label}
+        items={link.items}
+        isOpen={activeDropdown === link.label}
+        onToggle={() => toggleDropdown(link.label)}
+        onItemClick={isMobile ? handleMobileLinkClick : closeDropdown}
+        variant={variant}
+        onOpen={!isMobile ? () => openDropdown(link.label) : undefined}
+        onClose={!isMobile ? closeDropdown : undefined}
+      />
+    );
   };
 
   useEffect(() => {
@@ -129,19 +103,19 @@ function ResponsiveNavbar({
 
   const mobileMenu = (
     <div className="flex flex-col items-center gap-6 text-center">
-      <nav className="flex w-full flex-col gap-4">
-        {links.map(renderMobileNavItem)}
+      <nav className="flex flex-col w-full gap-4">
+        {links.map((link) => renderNavItem(link, 'mobile'))}
       </nav>
-      <div className="flex w-full flex-col items-center gap-3">
+      <div className="flex flex-col items-center w-full gap-3">
         <a
           href="/"
-          className="w-full max-w-xs rounded-md border border-blue-400/40 px-4 py-2 text-sm font-semibold text-blue-200 hover:border-blue-300 hover:text-white"
+          className="w-full max-w-xs px-4 py-2 text-sm font-semibold text-blue-200 border rounded-md border-blue-400/40 hover:border-blue-300 hover:text-white"
         >
           Log in
         </a>
         <a
           href="/"
-          className="w-full max-w-xs rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-400"
+          className="w-full max-w-xs px-4 py-2 text-sm font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-400"
         >
           Sign up
         </a>
@@ -156,7 +130,7 @@ function ResponsiveNavbar({
           {brand}
         </a>
         <nav className="items-center hidden gap-6 md:flex">
-          {links.map(renderDesktopNavItem)}
+          {links.map((link) => renderNavItem(link))}
         </nav>
         <div className="items-center hidden gap-3 md:flex">
           <a
