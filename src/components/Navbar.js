@@ -18,12 +18,12 @@ function ResponsiveNavbar({
   const isFullWidth = variant === 'full';
 
   const headerClass = isFullWidth
-    ? 'sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/95 text-white backdrop-blur-sm'
+    ? 'relative sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/95 text-white backdrop-blur-sm'
     : 'relative mx-auto max-w-4xl rounded-2xl border border-slate-800 bg-slate-900 text-white shadow-lg';
 
   const innerClass = isFullWidth
-    ? 'mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4'
-    : 'flex w-full items-center justify-between px-6 py-4';
+    ? 'mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4 min-h-16'
+    : 'flex w-full items-center justify-between px-6 py-4 min-h-16';
 
   const mobileMenu = (
     <div className="flex flex-col items-center gap-6 text-center">
@@ -101,16 +101,16 @@ function ResponsiveNavbar({
       </div>
 
       {isFullWidth ? (
-        mobileOpen && (
-          <div
-            id="mobile-menu"
-            className="fixed inset-x-0 top-[64px] bottom-0 z-40 overflow-y-auto bg-slate-950/95 md:hidden"
-          >
-            <div className="mx-auto flex min-h-full w-full max-w-5xl flex-col items-center justify-center px-6 py-10">
-              {mobileMenu}
-            </div>
+        <div
+          id="mobile-menu"
+          className={`md:hidden absolute inset-x-0 top-full z-40 transition-all duration-200 ease-out ${
+            mobileOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+          }`}
+        >
+          <div className="flex h-[calc(100vh-64px)] w-full items-center justify-center overflow-y-auto bg-slate-950/95 px-6 py-10">
+            {mobileMenu}
           </div>
-        )
+        </div>
       ) : (
         mobileOpen && (
           <div id="mobile-menu" className="border-t border-slate-800 bg-slate-900/95 px-6 py-6 md:hidden">
