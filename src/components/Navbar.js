@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import NavDropdown from './NavDropdown';
 
+// Default dropdown structure keeps global nav showcasing a menu even without custom props.
 const defaultDropdownItems = [
   {
     label: 'UI Components',
@@ -18,6 +19,7 @@ const defaultDropdownItems = [
   },
 ];
 
+// Fallback nav links are shared across app previews and standalone usage.
 const defaultLinks = [
   { label: 'Overview', href: '/' },
   {
@@ -67,6 +69,7 @@ function ResponsiveNavbar({
     closeDropdown();
   };
 
+  // Render navigation links while respecting layout differences between desktop and mobile.
   const renderNavItem = (link, variant = 'desktop') => {
     const isMobile = variant === 'mobile';
 
@@ -104,6 +107,7 @@ function ResponsiveNavbar({
     }
   }, [mobileOpen]);
 
+  // Close any open dropdown when users press Escape to align with accessibility guidelines.
   useEffect(() => {
     if (!activeDropdown) {
       return undefined;

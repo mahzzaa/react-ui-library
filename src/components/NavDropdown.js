@@ -42,6 +42,7 @@ function NavDropdown({
     }
   };
 
+  // Mobile dropdown behaves like an accordion to avoid hover-only interactions on touch devices.
   if (variant === 'mobile') {
     return (
       <div className="relative w-full text-left">
@@ -89,6 +90,7 @@ function NavDropdown({
     );
   }
 
+  // Desktop dropdown keeps focus/hover states synchronized for smooth keyboard and pointer usage.
   return (
     <div
       className="relative"
