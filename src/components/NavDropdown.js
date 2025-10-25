@@ -8,10 +8,12 @@ function NavDropdown({
   onItemClick,
   variant = 'desktop',
 }) {
+  // Skip rendering entirely if no dropdown content is provided.
   if (!Array.isArray(items) || items.length === 0) {
     return null;
   }
 
+  // Mouse leave handler closes the menu when users exit the dropdown surface.
   const handleMouseLeave = (event) => {
     if (!onClose) {
       return;
@@ -24,6 +26,7 @@ function NavDropdown({
     }
   };
 
+  // Blur fallback so keyboard navigation collapses the menu when focus moves away.
   const handleBlur = (event) => {
     if (!onClose) {
       return;
@@ -36,6 +39,7 @@ function NavDropdown({
     }
   };
 
+  // Centralize item click to keep external callbacks consistent across variants.
   const handleItemClick = (item) => {
     if (onItemClick) {
       onItemClick(item);
@@ -49,7 +53,7 @@ function NavDropdown({
         <button
           type="button"
           onClick={() => onToggle && onToggle()}
-          className="flex w-full items-center justify-between rounded-lg border border-slate-800/60 bg-slate-900/70 px-4 py-3 text-left text-lg font-medium text-slate-100 hover:border-blue-400/60 hover:text-white"
+          className="flex items-center justify-between w-full px-4 py-3 text-lg font-medium text-left border rounded-lg border-slate-800/60 bg-slate-900/70 text-slate-100 hover:border-blue-400/60 hover:text-white"
           aria-expanded={isOpen}
         >
           <span>{label}</span>
@@ -68,18 +72,18 @@ function NavDropdown({
             isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
           }`}
         >
-          <div className="rounded-xl border border-slate-800/70 bg-slate-900/95 p-3 shadow-xl backdrop-blur">
+          <div className="p-3 border shadow-xl rounded-xl border-slate-800/70 bg-slate-900/95 backdrop-blur">
             <div className="flex flex-col gap-2">
               {items.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block rounded-md px-3 py-2 text-left text-sm font-semibold text-slate-200 transition hover:bg-slate-800/70 hover:text-white"
+                  className="block px-3 py-2 text-sm font-semibold text-left transition rounded-md text-slate-200 hover:bg-slate-800/70 hover:text-white"
                   onClick={() => handleItemClick(item)}
                 >
                   <span>{item.label}</span>
                   {item.description && (
-                    <span className="mt-1 block text-xs font-normal text-slate-400">{item.description}</span>
+                    <span className="block mt-1 text-xs font-normal text-slate-400">{item.description}</span>
                   )}
                 </a>
               ))}
@@ -124,18 +128,18 @@ function NavDropdown({
           isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
         }`}
       >
-        <div className="rounded-xl border border-slate-800/70 bg-slate-900/95 p-4 shadow-xl backdrop-blur">
+        <div className="p-4 border shadow-xl rounded-xl border-slate-800/70 bg-slate-900/95 backdrop-blur">
           <div className="flex flex-col gap-2">
             {items.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className="block rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-slate-200 transition hover:border-blue-500/40 hover:bg-slate-800/80 hover:text-white"
+                className="block px-3 py-2 text-sm font-medium transition border border-transparent rounded-lg text-slate-200 hover:border-blue-500/40 hover:bg-slate-800/80 hover:text-white"
                 onClick={() => handleItemClick(item)}
               >
                 <span>{item.label}</span>
                 {item.description && (
-                  <span className="mt-1 block text-xs font-normal text-slate-400">{item.description}</span>
+                  <span className="block mt-1 text-xs font-normal text-slate-400">{item.description}</span>
                 )}
               </a>
             ))}
