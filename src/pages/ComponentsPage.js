@@ -1,18 +1,5 @@
 import { Link } from 'react-router-dom';
-
-const categories = [
-  {
-    name: 'Navigation',
-    description: 'Menus, headers, and interactive patterns that keep people oriented as they explore.',
-    components: [
-      {
-        name: 'Responsive Navbar',
-        blurb: 'Sticky header with logo area, primary links, and a mobile-friendly menu drawer.',
-        href: '/components/navbar-component',
-      },
-    ],
-  },
-];
+import componentCategories from '../data/componentCategories';
 
 function ComponentsPage() {
   return (
@@ -32,7 +19,7 @@ function ComponentsPage() {
         </header>
 
         <section className="grid gap-6 md:grid-cols-2">
-          {categories.map((category) => (
+          {componentCategories.map((category) => (
             <article
               key={category.name}
               className="rounded-xl border border-slate-800 bg-slate-900/70 p-6 text-left shadow-lg transition hover:border-blue-500/60 hover:shadow-blue-500/20"

@@ -2,11 +2,29 @@ import { Link, Outlet, Route, Routes } from 'react-router-dom';
 import ResponsiveNavbar from './components/Navbar';
 import ComponentsPage from './pages/ComponentsPage';
 import NavbarComponentPage from './pages/NavbarComponentPage';
+import componentCategories from './data/componentCategories';
 import './App.css';
+
+const componentDropdownItems = [
+  ...componentCategories.map((category) => ({
+    label: category.name,
+    href: category.href || category.components?.[0]?.href || '/components',
+    description: category.description,
+  })),
+  {
+    label: 'See all components',
+    href: '/components',
+  },
+];
 
 const navigationLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Components', href: '/components' },
+  {
+    label: 'Components',
+    href: '/components',
+    description: 'UI building blocks ready to drop into your project.',
+    items: componentDropdownItems,
+  },
   { label: 'Pricing', href: '#' },
   { label: 'Docs', href: '#' },
 ];
