@@ -93,7 +93,7 @@ function ResponsiveNavbar({
           const isOpen = activeDropdown === link.label;
 
           return (
-            <div key={link.label} className="w-full text-left">
+            <div key={link.label} className="relative w-full text-left">
               <button
                 type="button"
                 onClick={() => toggleDropdown(link.label)}
@@ -112,24 +112,28 @@ function ResponsiveNavbar({
                 </svg>
               </button>
               <div
-                className={`overflow-hidden transition-all duration-200 ease-out ${
-                  isOpen ? 'mt-3 max-h-80 opacity-100' : 'mt-0 max-h-0 opacity-0'
+                className={`absolute left-0 right-0 top-full z-20 mt-3 transition-all duration-150 ease-out ${
+                  isOpen
+                    ? 'pointer-events-auto translate-y-0 opacity-100'
+                    : 'pointer-events-none -translate-y-2 opacity-0'
                 }`}
               >
-                <div className="flex flex-col gap-2 rounded-lg border border-slate-800/60 bg-slate-900/80 p-3">
-                  {link.items.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.href}
-                      className="block rounded-md px-3 py-2 text-left text-sm font-semibold text-slate-200 hover:bg-slate-800/70 hover:text-white"
-                      onClick={handleMobileLinkClick}
-                    >
-                      <span>{item.label}</span>
-                      {item.description && (
-                        <span className="mt-1 block text-xs font-normal text-slate-400">{item.description}</span>
-                      )}
-                    </a>
-                  ))}
+                <div className="rounded-xl border border-slate-800/70 bg-slate-900/95 p-3 shadow-xl backdrop-blur">
+                  <div className="flex flex-col gap-2">
+                    {link.items.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        className="block rounded-md px-3 py-2 text-left text-sm font-semibold text-slate-200 transition hover:bg-slate-800/70 hover:text-white"
+                        onClick={handleMobileLinkClick}
+                      >
+                        <span>{item.label}</span>
+                        {item.description && (
+                          <span className="mt-1 block text-xs font-normal text-slate-400">{item.description}</span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
