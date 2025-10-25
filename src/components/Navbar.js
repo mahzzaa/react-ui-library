@@ -48,6 +48,61 @@ function ResponsiveNavbar({
     closeDropdown();
   };
 
+  const hasDropdownItems = (items) => Array.isArray(items) && items.length > 0;
+
+  const getDropdownProps = (link, variant = 'desktop') => {
+    const baseProps = {
+      label: link.label,
+      items: link.items,
+      isOpen: activeDropdown === link.label,
+      onToggle: () => toggleDropdown(link.label),
+    };
+
+    if (variant === 'mobile') {
+      return {
+        ...baseProps,
+        onItemClick: handleMobileLinkClick,
+        variant: 'mobile',
+      };
+    }
+
+    return {
+      ...baseProps,
+      onOpen: () => openDropdown(link.label),
+      onClose: closeDropdown,
+      onItemClick: closeDropdown,
+    };
+  };
+
+  const renderDesktopNavItem = (link) => {
+    if (!hasDropdownItems(link.items)) {
+      return (
+        <a key={link.label} href={link.href} className="text-sm font-medium text-slate-200 transition hover:text-white">
+          {link.label}
+        </a>
+      );
+    }
+
+    return <NavDropdown key={link.label} {...getDropdownProps(link)} />;
+  };
+
+  const renderMobileNavItem = (link) => {
+    if (!hasDropdownItems(link.items)) {
+      return (
+        <a
+          key={link.label}
+          href={link.href}
+          className="text-lg font-medium text-slate-100 hover:text-white"
+          onClick={handleMobileLinkClick}
+        >
+          {link.label}
+        </a>
+      );
+    }
+
+    return <NavDropdown key={link.label} {...getDropdownProps(link, 'mobile')} />;
+  };
+
   useEffect(() => {
     if (!mobileOpen) {
       closeDropdown();
@@ -75,34 +130,7 @@ function ResponsiveNavbar({
   const mobileMenu = (
     <div className="flex flex-col items-center gap-6 text-center">
       <nav className="flex w-full flex-col gap-4">
-        {links.map((link) => {
-          const hasDropdown = Array.isArray(link.items) && link.items.length > 0;
-
-          if (!hasDropdown) {
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-lg font-medium text-slate-100 hover:text-white"
-                onClick={handleMobileLinkClick}
-              >
-                {link.label}
-              </a>
-            );
-          }
-
-          return (
-            <NavDropdown
-              key={link.label}
-              label={link.label}
-              items={link.items}
-              isOpen={activeDropdown === link.label}
-              onToggle={() => toggleDropdown(link.label)}
-              onItemClick={handleMobileLinkClick}
-              variant="mobile"
-            />
-          );
-        })}
+        {links.map(renderMobileNavItem)}
       </nav>
       <div className="flex w-full flex-col items-center gap-3">
         <a
@@ -128,34 +156,7 @@ function ResponsiveNavbar({
           {brand}
         </a>
         <nav className="items-center hidden gap-6 md:flex">
-          {links.map((link) => {
-            const hasDropdown = Array.isArray(link.items) && link.items.length > 0;
-
-            if (!hasDropdown) {
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm font-medium text-slate-200 transition hover:text-white"
-                >
-                  {link.label}
-                </a>
-              );
-            }
-
-            return (
-              <NavDropdown
-                key={link.label}
-                label={link.label}
-                items={link.items}
-                isOpen={activeDropdown === link.label}
-                onToggle={() => toggleDropdown(link.label)}
-                onOpen={() => openDropdown(link.label)}
-                onClose={closeDropdown}
-                onItemClick={closeDropdown}
-              />
-            );
-          })}
+          {links.map(renderDesktopNavItem)}
         </nav>
         <div className="items-center hidden gap-3 md:flex">
           <a
